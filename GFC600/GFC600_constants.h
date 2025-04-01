@@ -28,3 +28,16 @@ enum DisplayArea {
     AREA_MESSAGES,
     AREA_COUNT
 };
+
+enum ModesMessageId
+{
+    HDG=0,
+    ROL,
+    NAV,
+    APR,
+    BC,
+    VS,
+    VNAV,
+    ALT,
+    ALTS
+};

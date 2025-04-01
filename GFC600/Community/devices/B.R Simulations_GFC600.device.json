@@ -18,8 +18,8 @@
     "MessageTypes": [
       {
         "id": 0,
-        "label": "Heading Mode Active",
-        "description": "$ will be displayed as result"
+        "label": "Heading Mode State",
+        "description": "0 = True, 1 = False"
       },
       {
         "id": 1,
@@ -28,7 +28,7 @@
       },
       {
         "id": 2,
-        "label": "Show AP On/Off",
+        "label": "Nav Mode State",
         "description": "0 = True, 1 = False"
       }
     ]
