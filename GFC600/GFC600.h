@@ -27,13 +27,23 @@ private:
     U8G2_SSD1322_NHD_256X64_F_4W_HW_SPI _display;
     Mode _hdg;
     Mode _rol;
-    Mode _nav;
+    Mode _vor;
+    Mode _gps;
     Mode _apr;
     Mode _bc;
-    Mode _vs;
+    Mode _ga;
+    Mode _lvl;
+
     Mode _vnav;
+    Mode _vs;
     Mode _alt;
     Mode _alts;
+    Mode _ias;
+    Mode _vpth;
+    Mode _gs;
+    Mode _gp;
+
+ 
 
 
 };

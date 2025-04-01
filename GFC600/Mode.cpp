@@ -3,9 +3,11 @@
 #include <Arduino.h>
 
 
-Mode::Mode(bool state, String name) {
+
+Mode::Mode(bool state, String name, ModesMessageId value) {
     _state = state; // Initialize the state of the mode
     _name = name; // Initialize the name of the mode
+    _value = value;
 }
 
 String Mode::getName() {

@@ -10,12 +10,26 @@
 
 
 GFC600::GFC600(uint8_t cs, uint8_t dc, uint8_t rst)
-    : _cs(cs), _dc(dc), _rst(rst), _display(U8G2_R0, cs, dc, rst), _hdg(false, "HDG"),
-      _rol(false, "ROL"), _nav(false, "NAV"), _apr(false, "APR"),
-      _bc(false, "BC"), _vs(false, "VS"), _vnav(false, "VNAV"),
-      _alt(false, "ALT"), _alts(false, "ALTS")
+    : _display(U8G2_R0, cs, dc, rst),
+      _cs(cs), _dc(dc), _rst(rst),
+      _hdg(false, "HDG", HDG),
+      _rol(false, "ROL", ROL),
+      _vor(false, "VOR", VOR),
+      _gps(false, "GPS", GPS),
+      _apr(false, "APR", APR),
+      _bc(false, "BC", BC),
+      _ga(false, "GA", GA),
+      _lvl(false, "LVL", LVL),
+      _vnav(false, "VNAV", VNAV),
+      _vs(false, "VS", VS),
+      _alt(false, "ALT", ALT),
+      _alts(false, "ALTS", ALTS),
+      _ias(false, "IAS", IAS),
+      _vpth(false, "VPTH", VPTH),
+      _gs(false, "GS", GS),
+      _gp(false, "GP", GP)
 {
-
+    // other init if needed
 }
 
 Mode GFC600::decideActiveLateralMode()
@@ -27,8 +41,8 @@ Mode GFC600::decideActiveLateralMode()
     if (_rol.getState()){
         return _rol; // Return the active roll mode
     }
-    if (_nav.getState()){
-        return _nav; // Return the active navigation mode
+    if (_gps.getState()){
+        return _gps; // Return the active navigation mode
     }
     if (_apr.getState()){
         return _apr; // Return the active approach mode
@@ -36,8 +50,8 @@ Mode GFC600::decideActiveLateralMode()
     if (_bc.getState()){
         return _bc; // Return the active back course mode
     }
-    if (_nav.getState()){
-        return _nav; // Return the active navigation mode
+    if (_vor.getState()){
+        return _vor; // Return the active navigation mode
     }
 
 }
@@ -88,6 +102,8 @@ void GFC600::set(int16_t messageID, char *setPoint)
     int32_t  data = atoi(setPoint);
     uint16_t output;
 
+
+
     // do something according your messageID
     switch (messageID) {
     case -1:
@@ -102,10 +118,10 @@ void GFC600::set(int16_t messageID, char *setPoint)
     case ROL:
         /* code */
         break;
-    case NAV:
+    case VOR:
         output = (uint16_t)data;
         data   = output;
-        _nav.setState(data); // Set the state of the heading mode
+        _vor.setState(data); // Set the state of the heading mode
         /* code */
         break;
     default:
