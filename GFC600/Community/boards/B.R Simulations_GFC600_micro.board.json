@@ -24,15 +24,15 @@
   "Info": {
     "CanInstallFirmware": true,
     "CanResetBoard": true,
-    "FirmwareBaseName": "mobiflight_template_micro",
+    "FirmwareBaseName": "b.r simulations_gfc600_micro",
     "FirmwareExtension": "hex",
-    "FriendlyName": "Mobiflight Template Micro",
+    "FriendlyName": "B.R Simulations GFC600 Micro",
     "LatestFirmwareVersion": "0.0.1",
-    "MobiFlightType": "Mobiflight Template Micro",
+    "MobiFlightType": "B.R Simulations GFC600 Micro",
     "ResetFirmwareFile": "reset.arduino_promicro_1_0_2.hex",
     "CustomDeviceTypes": [
-      "MOBIFLIGHT_TEMPLATE",
-      "MOBIFLIGHT_TEMPLATE2"
+      "GFC600",
+      "GFC6002"
     ],
     "Community": {
       "Project": "Your Project",

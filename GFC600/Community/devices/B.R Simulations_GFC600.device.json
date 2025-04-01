@@ -1,9 +1,9 @@
 {
     "$schema": "./mfdevice.schema.json",
     "Info": {
-      "Label": "Mobiflight's template",
-      "Type": "MOBIFLIGHT_TEMPLATE",
-      "Author": "Mobiflight",
+      "Label": "B.R Simulations's GFC600",
+      "Type": "GFC600",
+      "Author": "B.R Simulations",
       "URL": "https://github.com",
       "Version" : "1.0.0"
     },
@@ -18,8 +18,8 @@
     "MessageTypes": [
       {
         "id": 0,
-        "label": "Show Speed Value",
-        "description": "$ will be displayed as Speed value"
+        "label": "Heading Mode Active",
+        "description": "$ will be displayed as result"
       },
       {
         "id": 1,
