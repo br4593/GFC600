@@ -16,7 +16,11 @@ public:
     void update();
     void drawDisplayLayout();
     void drawActiveLateralMode(Mode mode);
+    void drawArmedLateralMode(Mode mode);
     Mode decideActiveLateralMode();
+    Mode decideArmedLatealMode();
+    void clearArea(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
+    void printTextToDisplay(uint8_t x, uint8_t y, const uint8_t *font, const char *text);
     void renderDisplay();
     void clearDisplay();
 
@@ -43,6 +47,7 @@ private:
     Mode _gs;
     Mode _gp;
 
+    
  
 
 

@@ -17,6 +17,11 @@ constexpr uint8_t X_VERTICAL = X_DIV1 + 2;                       // 52
 constexpr uint8_t X_DIV2     = X_VERTICAL + WIDTH_VERTICAL;     // 177
 constexpr uint8_t X_MESSAGES = X_DIV2 + 2;                       // 179
 
+constexpr uint8_t Y_ACTIVE = 25;
+constexpr uint8_t Y_ARMED = 60;
+constexpr uint8_t CLEAR_HEIGHT = 20; // Height of the area to clear
+constexpr uint8_t FONTS_LEFT_ALIGN_FACTOR = 2;
+
 const int NUM_OF_MODES = 15; // Number of modes
 
 // Font settings
@@ -51,5 +56,12 @@ enum ModesMessageId
     VPTH,      // Vertical Path
     VNAV,      // Generic VNAV (optional, if you track VNAV separately from VPTH)
     GS,        // Glideslope
-    GP         // Glidepath
+    GP,        // Glidepath
+
+    NONE = 9999
+};
+
+enum Colors {
+    BLACK = 0,
+    WHITE = 1
 };
