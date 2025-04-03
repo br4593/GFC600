@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="453d5d07-f3d9-4530-9492-530d5d329bdf">
+      <active>true</active>
+      <description>B/C Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT BACKCOURSE HOLD,Bool)" UUID="3b51d4d9-6c42-4bd1-8158-5358178a9d83" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="5" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="df789069-14b1-4e43-b24e-b04041a9603a">
+      <active>true</active>
+      <description>HDG Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT HEADING LOCK,Bool)" UUID="4eb2a124-0af9-45c5-a665-00b94bc0c207" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="1" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ef8c8ba7-d373-4ee8-86b0-476043ad0f56">
+      <active>true</active>
+      <description>NAV Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT NAV1 LOCK,Bool)" UUID="4224fc05-b6e9-44d4-9468-c546a05a99c4" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="2" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cb67b529-f0a2-49bb-9345-3d68ef4ba416">
+      <active>true</active>
+      <description>ROL Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT BANK HOLD,Bool)" UUID="a72a02c3-8080-4655-9196-fedf99e47990" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="0" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a2586ba5-9cd7-452f-8809-9bff12226bb0">
+      <active>true</active>
+      <description>NAV/GPS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:GPS DRIVES NAV1,Bool)" UUID="f6960682-68a0-4ba7-a19c-969b46f9c43b" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="3" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8e9457b9-9f72-4d37-a4f6-c925dbf0b1cd">
+      <active>true</active>
+      <description>LOC</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:NAV HAS LOCALIZER:1,Bool)" UUID="9c1ccb5a-cbf8-4570-af72-15e66acc352e" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="8" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e469fa5a-5182-4724-9eed-50b60ca6be74">
+      <active>true</active>
+      <description>LVL Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT WING LEVELER,Bool)" UUID="4fcd3b6a-1ff4-406f-a140-4bbbf4fed3f6" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="6" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="76fa4f00-37b2-4b46-934b-ee453376b047">
+      <active>true</active>
+      <description>ALT Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT ALTITUDE LOCK,Bool)" UUID="09df7de7-01e4-43ac-8015-9573385d8acb" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="11" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="33afb3e7-5a76-454d-a379-ee66eeeb2670">
+      <active>true</active>
+      <description>Altitude Lock Value</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT ALTITUDE LOCK VAR:1,Feet)" UUID="7ac4737f-b97d-4bbb-af35-7067a5f1c1aa" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1736b7d9-9d92-47c4-8518-ed94caee7984">
+      <active>true</active>
+      <description>Altitude Value</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:INDICATED ALTITUDE,Feet)" UUID="3110ef7c-3b03-4d05-99d6-fb582d3ac3f8" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($/100,0)*100" />
+        </modifiers>
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="29" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs />
+</MobiflightConnector>

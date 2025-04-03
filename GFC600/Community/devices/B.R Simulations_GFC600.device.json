@@ -58,51 +58,74 @@
     },
     {
       "id": 8,
-      "label": "Vertical Speed Mode",
+      "label": "Localizer Mode",
       "description": "0 = Inactive, 1 = Active"
     },
     {
       "id": 9,
-      "label": "Indicated Airspeed Mode",
+      "label": "Vertical Speed Mode",
       "description": "0 = Inactive, 1 = Active"
     },
     {
       "id": 10,
-      "label": "Altitude Hold Mode",
+      "label": "Indicated Airspeed Mode",
       "description": "0 = Inactive, 1 = Active"
     },
     {
       "id": 11,
-      "label": "Selected Altitude Capture Mode",
+      "label": "Altitude Hold Mode",
       "description": "0 = Inactive, 1 = Active"
     },
     {
       "id": 12,
-      "label": "Vertical Path Mode",
+      "label": "Selected Altitude Capture Mode",
       "description": "0 = Inactive, 1 = Active"
     },
     {
       "id": 13,
-      "label": "VNAV Mode",
+      "label": "Vertical Path Mode",
       "description": "0 = Inactive, 1 = Active"
     },
     {
       "id": 14,
-      "label": "Glideslope Mode",
+      "label": "VNAV Mode",
       "description": "0 = Inactive, 1 = Active"
     },
     {
       "id": 15,
+      "label": "Glideslope Mode",
+      "description": "0 = Inactive, 1 = Active"
+    },
+    {
+      "id": 16,
       "label": "Glidepath Mode",
       "description": "0 = Inactive, 1 = Active"
     },
-
     {
-      "id":16,
+      "id": 17,
       "label": "NAV/GPS",
       "description": "0 = NAV, 1 = GPS"
+    },
+
+    {
+      "id":29,
+      "label": "Current Altitude",
+      "description": "Current altitude in feet, rounded to the nearest 100 feet"
+    },
+    {
+      "id": 30,
+      "label": "Selected Altitude",
+      "description": "Altitude setting in feet"
+    },
+    {
+      "id": 31,
+      "label": "Vertical Speed",
+      "description": "Vertical speed setting in feet per minute"
+    },
+    {
+      "id": 32,
+      "label": "Indicated Airspeed",
+      "description": "Airspeed setting in knots"
     }
-
-
   ]
 }

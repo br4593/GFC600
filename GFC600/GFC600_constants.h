@@ -13,8 +13,10 @@ constexpr uint8_t WIDTH_MESSAGES = 75;
 // X coordinates of each section
 constexpr uint8_t X_LATERAL  = 0;
 constexpr uint8_t X_DIV1     = X_LATERAL + WIDTH_LATERAL;       // 50
-constexpr uint8_t X_VERTICAL = X_DIV1 + 2;                       // 52
+constexpr uint8_t X_VERTICAL = X_DIV1 + 2;                   // 52
 constexpr uint8_t X_DIV2     = X_VERTICAL + WIDTH_VERTICAL;     // 177
+constexpr uint8_t X_ALT_FOUR_DIGITS = X_DIV2 - 50;
+constexpr uint8_t X_ALT_THREE_DIGITS = X_DIV2 - 35; // 127
 constexpr uint8_t X_MESSAGES = X_DIV2 + 2;                       // 179
 
 constexpr uint8_t Y_ACTIVE = 25;
@@ -47,6 +49,7 @@ enum ModesMessageId
     BC,        // Backcourse
     LVL,       // Level (Wings Level)
     GA,        // Go Around
+    LOC,       // Localizer (VOR/LOC)
 
     // Vertical Modes
     VS,        // Vertical Speed
@@ -57,6 +60,11 @@ enum ModesMessageId
     VNAV,      // Generic VNAV (optional, if you track VNAV separately from VPTH)
     GS,        // Glideslope
     GP,        // Glidepath
+
+    ALTITUDE_VAL = 29,
+    ALTITUDE_LOCK_VAL = 30,
+    VS_VAL = 31,
+    IAS_VAL = 32,
 
     NONE = 9999
 };

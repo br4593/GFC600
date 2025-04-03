@@ -27,3 +27,12 @@ int getValue(Mode *mode) {
     return mode->value; // Get the value of the mode
 }
 
+bool compareModes(Mode mode1, Mode mode2) {
+
+    
+    // Compare all fields
+    return (mode1.state == mode2.state &&
+            mode1.name == mode2.name &&
+            mode1.value == mode2.value);
+}
+

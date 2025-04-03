@@ -17,3 +17,4 @@ void setValue(Mode *mode, ModesMessageId value); // Set the value of the mode
 bool getState(Mode *mode); // Get the state of the mode
 String getName(Mode *mode); // Get the name of the mode
 int getValue(Mode *mode); // Get the value of the mode
+bool compareModes(Mode mode1, Mode mode2); // Compare two modes for equality

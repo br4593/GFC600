@@ -19,6 +19,12 @@ public:
     void drawArmedLateralMode(Mode mode);
     Mode decideActiveLateralMode();
     Mode decideArmedLatealMode();
+    Mode decideActiveVertialMode();
+    Mode decideArmedVerticalModeOne();
+    Mode decideArmedVerticalModeTwo();
+    void drawActiveVerticalMode(Mode mode);
+    Mode drawArmedVerticalModeOne(Mode mode);
+    void drawVerticalSetting(Mode mode);
     void clearArea(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
     void printTextToDisplay(uint8_t x, uint8_t y, const uint8_t *font, const char *text);
     void renderDisplay();
@@ -35,6 +41,7 @@ private:
     Mode _gps;
     Mode _apr;
     Mode _bc;
+    Mode _loc;
     Mode _ga;
     Mode _lvl;
 
@@ -46,6 +53,12 @@ private:
     Mode _vpth;
     Mode _gs;
     Mode _gp;
+
+    int _altitude_lock_value;
+    int _altitude_value;
+    int _vs_value;
+    int _ias_value;
+
 
     
  
