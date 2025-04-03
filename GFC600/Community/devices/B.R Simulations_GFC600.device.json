@@ -78,7 +78,7 @@
     },
     {
       "id": 12,
-      "label": "Selected Altitude Capture Mode",
+      "label": "Altitude Capture Mode",
       "description": "0 = Inactive, 1 = Active"
     },
     {
@@ -101,8 +101,15 @@
       "label": "Glidepath Mode",
       "description": "0 = Inactive, 1 = Active"
     },
+
     {
       "id": 17,
+      "label": "Pitch Mode",
+      "description": "0 = Inactive, 1 = Active"
+    },
+    
+    {
+      "id": 18,
       "label": "NAV/GPS",
       "description": "0 = NAV, 1 = GPS"
     },
@@ -119,12 +126,12 @@
     },
     {
       "id": 31,
-      "label": "Vertical Speed",
+      "label": "Vertical Speed Setting",
       "description": "Vertical speed setting in feet per minute"
     },
     {
       "id": 32,
-      "label": "Indicated Airspeed",
+      "label": "Indicated Airspeed Hold Setting",
       "description": "Airspeed setting in knots"
     }
   ]

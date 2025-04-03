@@ -1,7 +1,7 @@
 
 #include "Mode.h"
 #include <Arduino.h>
-#include "GFC600_constants.h"
+#include "GFC600_utils.h"
 
 void setState(Mode *mode, bool state) {
     mode->state = state; // Set the state of the mode

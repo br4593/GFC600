@@ -1,6 +1,6 @@
 #pragma once
 #include <Arduino.h>
-#include "GFC600_constants.h"
+#include "GFC600_utils.h"
 
 typedef struct Mode{
     bool state; // State of the mode (on/off)

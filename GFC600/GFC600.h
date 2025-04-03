@@ -2,7 +2,7 @@
 
 #include "Arduino.h"
 #include <U8g2lib.h>
-#include "GFC600_constants.h"
+#include "GFC600_utils.h"
 #include "Mode.h"
 
 class GFC600
@@ -23,8 +23,14 @@ public:
     Mode decideArmedVerticalModeOne();
     Mode decideArmedVerticalModeTwo();
     void drawActiveVerticalMode(Mode mode);
-    Mode drawArmedVerticalModeOne(Mode mode);
+    void drawArmedVerticalModeOne(Mode mode);
     void drawVerticalSetting(Mode mode);
+    void altModeDrawingHandler();
+    void iasModeDrawingHandler();
+    void vsModeDrawingHandler();
+    
+
+
     void clearArea(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
     void printTextToDisplay(uint8_t x, uint8_t y, const uint8_t *font, const char *text);
     void renderDisplay();
@@ -53,11 +59,12 @@ private:
     Mode _vpth;
     Mode _gs;
     Mode _gp;
+    Mode _pit;
 
     int _altitude_lock_value;
     int _altitude_value;
     int _vs_value;
-    int _ias_value;
+    int _ias_lock_value;
 
 
     

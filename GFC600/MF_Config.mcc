@@ -13,6 +13,18 @@
         <configrefs />
       </settings>
     </config>
+    <config guid="920300ba-da3e-4311-8a94-0afe78ec3b8c">
+      <active>true</active>
+      <description>Airspeed Lock Value</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT AIRSPEED HOLD VAR,Knots)" UUID="c6348d07-b8b3-4e31-a28d-8615cf8e837e" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="32" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
     <config guid="df789069-14b1-4e43-b24e-b04041a9603a">
       <active>true</active>
       <description>HDG Mode</description>
@@ -104,7 +116,7 @@
         <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT ALTITUDE LOCK VAR:1,Feet)" UUID="7ac4737f-b97d-4bbb-af35-7067a5f1c1aa" />
         <test type="Float" value="1" />
         <modifiers />
-        <display type="-" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" pin="" pinBrightness="255" />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="30" value="$" />
         <preconditions />
         <configrefs />
       </settings>
@@ -119,6 +131,42 @@
           <transformation active="True" expression="Round($/100,0)*100" />
         </modifiers>
         <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="29" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3ca5e13f-2f8b-4d3a-b951-c26fab637daa">
+      <active>true</active>
+      <description>Airspeed Lock Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT FLIGHT LEVEL CHANGE,bool)" UUID="276c8b8b-c886-4653-b531-b9eb4ca661d3" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="10" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="48656c22-9adc-4113-8bfe-07f9e31fec1a">
+      <active>true</active>
+      <description>Pitch Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT PITCH HOLD,Bool)" UUID="611c2ee4-a16a-439f-b482-3c8dbe97b47c" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="17" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="57e1ae9d-ed3f-4ca3-94f0-aa8c0536a643">
+      <active>true</active>
+      <description>Altitude Lock Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT ALTITUDE LOCK,Bool)" UUID="09df7de7-01e4-43ac-8015-9573385d8acb" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="12" value="$" />
         <preconditions />
         <configrefs />
       </settings>

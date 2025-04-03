@@ -158,6 +158,10 @@ void GFC600::set(int16_t messageID, char *setPoint)
             setState(&_gp, data);
             break;
 
+        case PIT:
+            setState(&_pit, data);
+            break;
+
         case ALTITUDE_VAL:
             // Set the altitude value
             _altitude_value = data;
@@ -170,7 +174,7 @@ void GFC600::set(int16_t messageID, char *setPoint)
         
         case IAS_VAL:
             // Set the indicated airspeed value
-            _ias_value = data;
+            _ias_lock_value = data;
             break;
 
         default:
@@ -192,12 +196,14 @@ void GFC600::renderDisplay()
     Mode activeLateralMode = decideActiveLateralMode(); // Decide the active lateral mode
     Mode armedLateralMode = decideArmedLatealMode(); // Decide the armed lateral mode
     Mode activeVerticalMode = decideActiveVertialMode(); // Decide the active vertical mode
+    Mode armedVerticalModeOne = decideArmedVerticalModeOne(); // Decide the armed vertical mode
 
     drawActiveLateralMode(activeLateralMode); // Draw the active lateral mode
     drawArmedLateralMode(armedLateralMode); // Draw the armed lateral mode
 
     drawActiveVerticalMode(activeVerticalMode); // Draw the active vertical mode
     drawVerticalSetting(activeVerticalMode); // Draw the vertical setting
+    drawArmedVerticalModeOne(armedVerticalModeOne); // Draw the armed vertical mode
 
 
     _display.sendBuffer(); // Send the buffer to the display
@@ -213,154 +219,69 @@ void GFC600::clearDisplay()
 
 Mode GFC600::decideActiveLateralMode()
 {
-    if (_lvl.state && _vor.state && _loc.state && !_gps.state)
+    // Highest priority: when LVL is active
+    if (_lvl.state)
     {
-        return _loc;
+        if (_vor.state && _loc.state && !_gps.state) return _loc;
+        if (_vor.state && !_loc.state && !_gps.state) return _vor;
+        if (_vor.state && _gps.state) return _gps;
+        if (_bc.state) return _bc;
     }
 
-    else if (_lvl.state && _vor.state && !_loc.state && !_gps.state)
-    {
-         return _vor;
-    }
-
-    else if (_lvl.state && _vor.state && _gps.state)
-    {
-        return _gps;
-    }
-
-    else if (_lvl.state && _bc.state)
-    {
-        return _bc;
-    }
-
-
+    // Roll mode takes over if active
     if (_rol.state)
-    {
         return _rol;
-    }
 
-    if (_bc.state && !_hdg.state && !_rol.state)
-    {
+    // Back Course / Heading logic
+    if (_bc.state && !_hdg.state)
         return _bc;
-    }
 
-    if (!_hdg.state && _bc.state)
-    {
-        return _bc;
-    }
-
-    if (_hdg.state && _bc.state)
-    {
+    if (_hdg.state)
         return _hdg;
-    }
 
+    // VOR/LOC/GPS fallback logic
+    if (_vor.state && _loc.state) return _loc;
+    if (_vor.state && _gps.state) return _gps;
+    if (_vor.state) return _vor;
+    if (_gps.state) return _gps;
 
-
-    if (_hdg.state && _vor.state && _loc.state)
-    {
-        return _hdg;
-    }
-
-    else if (!_hdg.state && _vor.state && _loc.state)
-    {
-        return _loc;
-    }
-
-    else if (_hdg.state && _vor.state && _gps.state)
-    {
-        return _hdg;
-    }
-
-    else if (_hdg.state && _vor.state && !_gps.state)
-    {
-        return _hdg;
-    }
-
-    else if (_hdg.state && !_vor.state && !_gps.state)
-    {
-        return _hdg;
-    }
-
-    else if (!_hdg.state && _vor.state && !_gps.state)
-    {
-        return _vor;
-    }
-
-    else if (!_hdg.state && _vor.state && _gps.state)
-    {
-        return _gps;
-    }
-
-    else if (_hdg.state && !_vor.state && _gps.state)
-    {
-        return _hdg;
-    }
-
-    else if (!_hdg.state && _vor.state && _gps.state)
-    {
-    return _gps;
-    }
-
-    return {false, "NONE", NONE}; // Default case if no mode is active
+    // Default fallback
+    return {false, "NONE", NONE};
 }
 
 
 Mode GFC600::decideArmedLatealMode()
 {
-
-    if (_rol.state && _loc.state)
+    // Roll mode + armed conditions
+    if (_rol.state)
     {
-        return _loc;
+        if (_loc.state) return _loc;
+        if (_bc.state) return _bc;
+        if (_vor.state && !_gps.state) return _vor;
+        if (_vor.state && _gps.state) return _gps;
     }
 
-    if (_rol.state && _bc.state)
+    // Heading mode + armed conditions
+    if (_hdg.state)
     {
-        return _bc;
+        if (_bc.state) return _bc;
+
+        if (_vor.state && !_gps.state)
+        {
+            if (_loc.state) return _loc;
+            return _vor;
+        }
+
+        if (_vor.state && _gps.state)
+            return _gps;
     }
 
-    if (_rol.state && _vor.state && !_gps.state)
-    {
-        return _vor;
-    }
-
-    else if (_rol.state && _vor.state && _gps.state)
-    {
-        return _gps;
-    }
-
-    if (_hdg.state && _bc.state)
-    {
-        return _bc;
-    }
-
-    if (_hdg.state && _vor.state && !_gps.state && _loc.state)
-    {
-        return _loc;
-    }
-
-    else if (_hdg.state && _vor.state && !_gps.state && !_loc.state)
-
-    {
-        return _vor;
-    }
-
-    else if (_hdg.state && _vor.state && _gps.state)
-    {
-        return _gps;
-    }
-
-
-
-    return {false, "NONE", NONE}; // Default case if no mode is active
+    // Default fallback
+    return {false, "NONE", NONE};
 }
 
 
-void GFC600::drawActiveVerticalMode(Mode mode)
-{
-    // Clear only the active vertical mode area
-    clearArea(X_DIV1+25, 0, 80, CLEAR_HEIGHT+10); // Clear the active mode area
-    printTextToDisplay(X_DIV1 + FONTS_LEFT_ALIGN_FACTOR, Y_ACTIVE, FONT_ACTIVE, mode.name.c_str()); // Draw the active mode name
-}
+
 
 
 Mode GFC600::decideActiveVertialMode()
@@ -370,20 +291,153 @@ Mode GFC600::decideActiveVertialMode()
         return _alt;
     }
 
+    if (_ias.state)
+    {
+        return _ias;
+    }
+
+    if (_vs.state)
+    {
+        return _vs;
+    }
+
+    if (_lvl.state)
+    {
+        return _lvl;
+    }
+
+    if (_pit.state)
+    {
+        return _pit;
+    }
+
+    if (_alts.state)
+    {
+        return _alts;
+    }
+
 
 
     return {false, "NONE", NONE}; // Default case if no mode is active
 }
 
 
-void GFC600::drawVerticalSetting(Mode mode)
+void GFC600::altModeDrawingHandler()
 {
-    // Clear only the active vertical mode area
-    clearArea(X_ALT_FOUR_DIGITS, Y_ACTIVE, X_DIV2 - X_ALT_FOUR_DIGITS, CLEAR_HEIGHT); // Clear the active mode area
-    
     char altitude_str[20]; // Buffer for the altitude value
     sprintf(altitude_str, "%d", _altitude_value); // Convert integer to string
-    printTextToDisplay(X_ALT_FOUR_DIGITS + FONTS_LEFT_ALIGN_FACTOR, Y_ACTIVE, FONT_ACTIVE, altitude_str); // Draw the active mode name
+
+    if (_altitude_value > 999 && _altitude_value < 10000)
+    {
+        printTextToDisplay(X_ALT_FOUR_DIGITS, Y_ACTIVE, FONT_ACTIVE, altitude_str); // Draw the active mode name
+    }
+    else if (_altitude_value < 1000)
+    {
+
+        printTextToDisplay(X_ALT_THREE_DIGITS, Y_ACTIVE, FONT_ACTIVE, altitude_str); // Draw the active mode name
+    }
+    else if (_altitude_value > 9999)
+    {
+
+        printTextToDisplay(X_ALT_FIVE_DIGITS, Y_ACTIVE, FONT_ACTIVE, altitude_str); // Draw the active mode name
+    }
+
+    else if(_altitude_value == 0)
+    {
+
+        printTextToDisplay(X_DIV2, Y_ACTIVE, FONT_ACTIVE, altitude_str); // Draw the active mode name
+    }
+
+    printTextToDisplay(X_UNITS-CORRECTION_FACTOR,Y_UNITS,FONT_ARMED,"FT");
+}
+
+
+Mode GFC600::decideArmedVerticalModeOne()
+{
+    if (_pit.state || _ias.state || _vs.state || _ga.state)
+    {
+        return _alts;
+    }
+
+    if (_alts.state)
+    {
+        return _alt;
+    }
+
+    return {false, "NONE", NONE}; // Default case if no mode is active
+}
+
+
+void GFC600::drawActiveVerticalMode(Mode mode)
+{
+    // Clear only the active vertical mode area
+    clearArea(activeVerticalArea.x, activeVerticalArea.y, activeVerticalArea.width, activeVerticalArea.height); // Clear the active lateral mode area
+    printTextToDisplay(X_DIV1 + FONTS_LEFT_ALIGN_FACTOR, Y_ACTIVE, FONT_ACTIVE, mode.name.c_str()); // Draw the active mode name
+}
+
+
+
+void GFC600::drawArmedVerticalModeOne(Mode mode)
+{
+    // Clear only the armed vertical mode area
+    clearArea(armedVerticalArea.x, armedVerticalArea.y, armedVerticalArea.width, armedVerticalArea.height); // Clear the active lateral mode area
+    printTextToDisplay(X_DIV1 + FONTS_LEFT_ALIGN_FACTOR, Y_ARMED, FONT_ARMED, mode.name.c_str()); // Draw the active mode name
+}
+
+
+void GFC600::iasModeDrawingHandler()
+    {
+        char ias_str[20]; // Buffer for the altitude value
+        sprintf(ias_str, "%d", _ias_lock_value); // Convert integer to string
+
+        if (_ias_lock_value < 999 && _ias_lock_value > 99)
+        {
+            printTextToDisplay(X_ALT_THREE_DIGITS-3, Y_ACTIVE, FONT_ACTIVE, ias_str); // Draw the active mode name
+        }
+        else if (_ias_lock_value < 100 && _ias_lock_value > 9)
+        {
+            printTextToDisplay(X_ALT_TWO_DIGITS- CORRECTION_FACTOR, Y_ACTIVE, FONT_ACTIVE, ias_str); // Draw the active mode name
+        }
+
+        printTextToDisplay(X_UNITS-CORRECTION_FACTOR-2,Y_UNITS,FONT_ARMED,"KTS");
+
+    }
+
+void GFC600::vsModeDrawingHandler()
+{
+
+    char vs_str[20]; // Buffer for the altitude value
+    sprintf(vs_str, "%d", _vs_value); // Convert integer to string
+
+    if (_vs_value < 999 && _vs_value > 99)
+    {
+        printTextToDisplay(X_ALT_THREE_DIGITS-3, Y_ACTIVE, FONT_ACTIVE, vs_str); // Draw the active mode name
+        u8g2.setFont(u8g2_font_unifont_t);
+        u8g2.drawUTF8(X_ALT_THREE_DIGITS - 10, Y_ACTIVE, "\u2191"); // Up arrow (↑)
+    }
+    else if (_vs_value < 100 && _vs_value > 9)
+    {
+        printTextToDisplay(X_ALT_TWO_DIGITS- CORRECTION_FACTOR, Y_ACTIVE, FONT_ACTIVE, vs_str); // Draw the active mode name
+    }
+
+    printTextToDisplay(X_UNITS-CORRECTION_FACTOR-2,Y_UNITS,FONT_ARMED,"FPM");
+}
+
+
+void GFC600::drawVerticalSetting(Mode mode)
+{
+    
+    if (mode.name == "ALT")
+    {
+        altModeDrawingHandler(); // Draw the active mode name
+    }
+
+    if (mode.name == "IAS")
+    {
+        iasModeDrawingHandler(); // Draw the active mode name
+    }
+
+    
 }
 
 
@@ -394,7 +448,7 @@ void GFC600::clearArea(uint8_t x, uint8_t y, uint8_t width, uint8_t height)
 {
     _display.setDrawColor(BLACK); // Set draw color to black (clear)
     _display.drawBox(x, y, width, height); // Clear the specified area
-    _display.setDrawColor(WHITE); // Reset draw color to white (draw)
+
 }
 
 
@@ -411,24 +465,18 @@ void GFC600::drawActiveLateralMode(Mode mode)
 {
     // Clear only the active lateral mode area
     
-
-
-     clearArea(0, 0, X_DIV1 - X_LATERAL, CLEAR_HEIGHT+15); // Clear the active mode area
+     clearArea(activeLateralArea.x, activeLateralArea.y, activeLateralArea.width, activeLateralArea.height); // Clear the active mode area
      printTextToDisplay(X_LATERAL, Y_ACTIVE, FONT_ACTIVE, mode.name.c_str()); // Draw the active mode name
-
-
 
 }
 
 void GFC600::drawArmedLateralMode(Mode mode)
 {
   
-
-     clearArea(X_LATERAL, Y_ARMED - CLEAR_HEIGHT, X_DIV1 - X_LATERAL, CLEAR_HEIGHT); // Clear the armed mode area
+     clearArea(armedLateralArea.x, armedLateralArea.y, armedLateralArea.width, armedLateralArea.height); // Clear the armed mode area
      printTextToDisplay(X_LATERAL + FONTS_LEFT_ALIGN_FACTOR, Y_ARMED, FONT_ARMED, mode.name.c_str()); // Draw the armed mode name
 
 }
-
 
 
 void GFC600::update()
