@@ -19,12 +19,16 @@ constexpr uint8_t X_LATERAL  = 0;
 constexpr uint8_t X_DIV1     = X_LATERAL + WIDTH_LATERAL;       // 50
 constexpr uint8_t X_VERTICAL = X_DIV1 + 2;                   // 52
 constexpr uint8_t X_DIV2     = X_VERTICAL + WIDTH_VERTICAL;     // 177
-constexpr uint8_t X_ALT_FIVE_DIGITS = X_DIV2 - X_ACTIVE_SPACING_FACTOR * 4 - CORRECTION_FACTOR;
-constexpr uint8_t X_ALT_FOUR_DIGITS = X_DIV2 - X_ACTIVE_SPACING_FACTOR * 3 - CORRECTION_FACTOR;
-constexpr uint8_t X_ALT_THREE_DIGITS = X_DIV2 - X_ACTIVE_SPACING_FACTOR *2 - CORRECTION_FACTOR; 
-constexpr uint8_t X_ALT_TWO_DIGITS = X_DIV2 - X_ACTIVE_SPACING_FACTOR - CORRECTION_FACTOR;
+
+constexpr uint8_t X_VERTICAL_THREE_DIGITS = 140; 
+constexpr uint8_t X_VERTICAL_FOUR_DIGITS = X_VERTICAL_THREE_DIGITS - 12;;
+constexpr uint8_t X_VERTICAL_FIVE_DIGITS = X_VERTICAL_FOUR_DIGITS - 12;;
+
+
+
+constexpr uint8_t X_VERTICAL_TWO_DIGITS = X_DIV2 - X_ACTIVE_SPACING_FACTOR - CORRECTION_FACTOR;
 constexpr uint8_t X_MESSAGES = X_DIV2 + 2;    
-constexpr uint8_t X_UNITS = X_DIV2 - 15;  
+constexpr uint8_t X_UNITS = X_DIV2 - 20;  
             // 179
 
 constexpr uint8_t Y_ACTIVE = 25;
@@ -37,9 +41,14 @@ constexpr uint8_t FONTS_LEFT_ALIGN_FACTOR = 2;
 
 const int NUM_OF_MODES = 15; // Number of modes
 
+extern const char *DOWN_ARROW; // Symbol for a downward arrow.
+extern const char *UP_ARROW;   // Symbol for an upward arrow.       
+extern const int   ARROW_SIZE; // Size of the arrow symbol. 
+
 // Font settings
 #define FONT_ACTIVE u8g2_font_logisoso18_tr
 #define FONT_ARMED    u8g2_font_6x10_tr
+#define ARROW_FONT u8g2_font_9x15_m_symbols
 
 // Message ID mapping
 enum DisplayArea {
@@ -69,9 +78,10 @@ enum ModesMessageId
     ALTS,      // Selected Altitude Capture
     VPTH,      // Vertical Path
     VNAV,      // Generic VNAV (optional, if you track VNAV separately from VPTH)
-    GS,        // Glideslope
-    GP,        // Glidepath
+    GS_ARMED,        // Glideslope
+    GS_ACTIVE,        // Glidepath
     PIT,
+    GP,
 
     ALTITUDE_VAL = 29,
     ALTITUDE_LOCK_VAL = 30,

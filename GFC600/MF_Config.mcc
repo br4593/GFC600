@@ -137,7 +137,7 @@
     </config>
     <config guid="3ca5e13f-2f8b-4d3a-b951-c26fab637daa">
       <active>true</active>
-      <description>Airspeed Lock Mode</description>
+      <description>IAS Mode</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT FLIGHT LEVEL CHANGE,bool)" UUID="276c8b8b-c886-4653-b531-b9eb4ca661d3" />
         <test type="Float" value="1" />
@@ -160,7 +160,7 @@
       </settings>
     </config>
     <config guid="57e1ae9d-ed3f-4ca3-94f0-aa8c0536a643">
-      <active>true</active>
+      <active>false</active>
       <description>Altitude Lock Mode</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT ALTITUDE LOCK,Bool)" UUID="09df7de7-01e4-43ac-8015-9573385d8acb" />
@@ -169,6 +169,84 @@
         <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="12" value="$" />
         <preconditions />
         <configrefs />
+      </settings>
+    </config>
+    <config guid="cc2cdf8e-2cfe-4e0f-a00b-1a9a9c8693b3">
+      <active>true</active>
+      <description>VS Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT VERTICAL HOLD,Bool)" UUID="3c5c84e5-a499-4a07-8d0c-f812004f60fe" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="9" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="aa7c3e16-f358-46f9-8912-2f415a9923ff">
+      <active>true</active>
+      <description>VS Setting Value</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT VERTICAL HOLD VAR,Feet/minute)" UUID="bc545a04-646d-41ce-a510-2c798f7dfe1d" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="31" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d72bd5a9-8598-445b-b7d9-1ecbaeac6de9">
+      <active>true</active>
+      <description>GS Armed</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT GLIDESLOPE ARM,bool)" UUID="7412995d-21d9-419e-b80d-2e6c56afdb06" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="15" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8a8d2510-3e49-4fb5-b9d3-915d3a900289">
+      <active>true</active>
+      <description>GS Active</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT GLIDESLOPE ACTIVE,bool)" UUID="4c7f4666-014f-4ae9-b9b8-f84ecce46cb8" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="16" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8d812ee7-13fb-4603-ba15-5bc0997a7043">
+      <active>true</active>
+      <description>APR Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT APPROACH HOLD,Bool)" UUID="d7187230-2fd2-41a7-b22e-55e3e8a0ec12" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="4" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3ba6a721-7df2-45a1-806c-f4c91dfd0452">
+      <active>true</active>
+      <description>ALTS Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT ALTITUDE LOCK VAR:1,Feet)" UUID="7ac4737f-b97d-4bbb-af35-7067a5f1c1aa" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-A" />
+          <transformation active="True" expression="if($ &gt;= -200 and $ &lt;= 200, 1, 0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="12" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="False" ref="57e1ae9d-ed3f-4ca3-94f0-aa8c0536a643" placeholder="B" testvalue="1" />
+          <configref active="True" ref="1736b7d9-9d92-47c4-8518-ed94caee7984" placeholder="A" testvalue="1" />
+        </configrefs>
       </settings>
     </config>
   </outputs>

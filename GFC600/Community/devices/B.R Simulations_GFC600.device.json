@@ -15,124 +15,122 @@
     ],
     "isI2C": false
   },
-  "MessageTypes": [
-    {
-      "id": 0,
-      "label": "Roll Hold Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 1,
-      "label": "Heading Select Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 2,
-      "label": "VOR Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 3,
-      "label": "GPS Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 4,
-      "label": "Approach Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 5,
-      "label": "Backcourse Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 6,
-      "label": "Level Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 7,
-      "label": "Go Around Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 8,
-      "label": "Localizer Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 9,
-      "label": "Vertical Speed Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 10,
-      "label": "Indicated Airspeed Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 11,
-      "label": "Altitude Hold Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 12,
-      "label": "Altitude Capture Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 13,
-      "label": "Vertical Path Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 14,
-      "label": "VNAV Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 15,
-      "label": "Glideslope Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    {
-      "id": 16,
-      "label": "Glidepath Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
+"MessageTypes": [
+  {
+    "id": 0,
+    "label": "ROL",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 1,
+    "label": "HDG",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 2,
+    "label": "VOR",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 3,
+    "label": "GPS",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 4,
+    "label": "APR",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 5,
+    "label": "BC",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 6,
+    "label": "LVL",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 7,
+    "label": "GA",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 8,
+    "label": "LOC",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 9,
+    "label": "VS",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 10,
+    "label": "IAS",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 11,
+    "label": "ALT",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 12,
+    "label": "ALTS",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 13,
+    "label": "VPTH",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 14,
+    "label": "VNAV",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 15,
+    "label": "GS_ARMED",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 16,
+    "label": "GS_ACTIVE",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 17,
+    "label": "PIT",
+    "description": "0 = Inactive, 1 = Active"
+  },
+  {
+    "id": 18,
+    "label": "NAV/GPS",
+    "description": "0 = NAV, 1 = GPS"
+  },
+  {
+    "id": 29,
+    "label": "ALTITUDE_VAL",
+    "description": "Current altitude in feet, rounded to the nearest 100 feet"
+  },
+  {
+    "id": 30,
+    "label": "ALTITUDE_LOCK_VAL",
+    "description": "Altitude setting in feet"
+  },
+  {
+    "id": 31,
+    "label": "VS_VAL",
+    "description": "Vertical speed setting in feet per minute"
+  },
+  {
+    "id": 32,
+    "label": "IAS_VAL",
+    "description": "Airspeed setting in knots"
+  }
+]
 
-    {
-      "id": 17,
-      "label": "Pitch Mode",
-      "description": "0 = Inactive, 1 = Active"
-    },
-    
-    {
-      "id": 18,
-      "label": "NAV/GPS",
-      "description": "0 = NAV, 1 = GPS"
-    },
-
-    {
-      "id":29,
-      "label": "Current Altitude",
-      "description": "Current altitude in feet, rounded to the nearest 100 feet"
-    },
-    {
-      "id": 30,
-      "label": "Selected Altitude",
-      "description": "Altitude setting in feet"
-    },
-    {
-      "id": 31,
-      "label": "Vertical Speed Setting",
-      "description": "Vertical speed setting in feet per minute"
-    },
-    {
-      "id": 32,
-      "label": "Indicated Airspeed Hold Setting",
-      "description": "Airspeed setting in knots"
-    }
-  ]
 }

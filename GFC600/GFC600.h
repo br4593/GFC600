@@ -18,16 +18,18 @@ public:
     void drawActiveLateralMode(Mode mode);
     void drawArmedLateralMode(Mode mode);
     Mode decideActiveLateralMode();
-    Mode decideArmedLatealMode();
+    Mode decideArmedLateralMode();
     Mode decideActiveVertialMode();
     Mode decideArmedVerticalModeOne();
     Mode decideArmedVerticalModeTwo();
     void drawActiveVerticalMode(Mode mode);
     void drawArmedVerticalModeOne(Mode mode);
+    void drawArmedVerticalModeTwo(Mode mode);
     void drawVerticalSetting(Mode mode);
-    void altModeDrawingHandler();
+    void altModeDrawingHandler(Mode mode);
     void iasModeDrawingHandler();
     void vsModeDrawingHandler();
+    void drawArrow(uint8_t x, uint8_t y, const char *arrow);
     
 
 
@@ -57,9 +59,11 @@ private:
     Mode _alts;
     Mode _ias;
     Mode _vpth;
-    Mode _gs;
+    Mode _gs_armed;
+    Mode _gs_active;
     Mode _gp;
     Mode _pit;
+    Mode _none;
 
     int _altitude_lock_value;
     int _altitude_value;
