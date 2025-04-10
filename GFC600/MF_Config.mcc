@@ -123,14 +123,14 @@
     </config>
     <config guid="1736b7d9-9d92-47c4-8518-ed94caee7984">
       <active>true</active>
-      <description>Altitude Value</description>
+      <description>Altitude Value nearest 100</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:INDICATED ALTITUDE,Feet)" UUID="3110ef7c-3b03-4d05-99d6-fb582d3ac3f8" />
         <test type="Float" value="1" />
         <modifiers>
           <transformation active="True" expression="Round($/100,0)*100" />
         </modifiers>
-        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="29" value="$" />
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="27" value="$" />
         <preconditions />
         <configrefs />
       </settings>
@@ -193,6 +193,42 @@
         <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="31" value="$" />
         <preconditions />
         <configrefs />
+      </settings>
+    </config>
+    <config guid="5329e4f4-2168-4880-be33-f2e0ccd8ce7c">
+      <active>true</active>
+      <description>Within 50ft</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:INDICATED ALTITUDE,Feet)" UUID="3110ef7c-3b03-4d05-99d6-fb582d3ac3f8" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($/10,0)*10" />
+          <transformation active="True" expression="Abs($-#)" />
+          <comparison active="True" value="50" operand="&lt;=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="28" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="33afb3e7-5a76-454d-a379-ee66eeeb2670" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="2a2474a0-0e3f-44cb-ac9a-468b04934743">
+      <active>true</active>
+      <description>Within 200ft</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:INDICATED ALTITUDE,Feet)" UUID="3110ef7c-3b03-4d05-99d6-fb582d3ac3f8" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($/10,0)*10" />
+          <transformation active="True" expression="Abs($-#)" />
+          <comparison active="True" value="200" operand="&lt;=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="29" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="33afb3e7-5a76-454d-a379-ee66eeeb2670" placeholder="#" testvalue="1" />
+        </configrefs>
       </settings>
     </config>
     <config guid="d72bd5a9-8598-445b-b7d9-1ecbaeac6de9">

@@ -8,6 +8,9 @@ typedef struct Mode{
     ModesMessageId value; // Value associated with the mode
 } Mode;
 
+extern unsigned long flashStartTime;
+extern bool flashing;
+
 
 //methods
 

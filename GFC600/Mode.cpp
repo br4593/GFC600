@@ -3,6 +3,10 @@
 #include <Arduino.h>
 #include "GFC600_utils.h"
 
+unsigned long flashStartTime = 0; // Initialize flash start time
+bool flashing = false; // Initialize flashing state
+
+
 void setState(Mode *mode, bool state) {
     mode->state = state; // Set the state of the mode
 }

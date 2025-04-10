@@ -111,9 +111,21 @@
     "label": "NAV/GPS",
     "description": "0 = NAV, 1 = GPS"
   },
+
+  {
+    "id": 27,
+    "label": " ALTITUDE_VALUE_100FT",
+    "description": "Current altitude in feet, rounded to the nearest 100 feet"
+  },
+
+  {
+    "id": 28,
+    "label": "ALTITUDE_WITHIN_50FT",
+    "description": "Current altitude in feet, rounded to the nearest 50 feet"
+  },
   {
     "id": 29,
-    "label": "ALTITUDE_VAL",
+    "label": "ALTITUDE_WITHIN_200FT",
     "description": "Current altitude in feet, rounded to the nearest 100 feet"
   },
   {

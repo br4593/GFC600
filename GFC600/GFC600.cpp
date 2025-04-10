@@ -32,6 +32,8 @@ GFC600::GFC600(uint8_t cs, uint8_t dc, uint8_t rst)
     _gp   = {false, "GP", GP};
     _pit = {false, "PIT", PIT};
     _none = {false, "NONE", NONE};
+
+
 }
 
 
@@ -166,9 +168,24 @@ void GFC600::set(int16_t messageID, char *setPoint)
             setState(&_pit, data);
             break;
 
-        case ALTITUDE_VAL:
+        case ALTITUDE_VALUE_100FT:
             // Set the altitude value
-            _altitude_value = data;
+            _altitude_value_100ft = data;
+            break;
+
+        case ALTITUDE_WITHIN_50FT:
+            // Set the altitude value
+            _within50ft = data;
+            break;
+
+        case ALTITUDE_WITHIN_200FT:
+            // Set the altitude value
+            _within200ft = data;
+            break;
+
+        case ALTITUDE_LOCK_VAL:
+            // Set the altitude lock value
+            _altitude_lock_value = data;
             break;
 
         case VS_VAL:
@@ -211,7 +228,6 @@ void GFC600::renderDisplay()
     drawArmedVerticalModeOne(armedVerticalModeOne); // Draw the armed vertical mode
     drawArmedVerticalModeTwo(armedVerticalModeTwo); // Draw the armed vertical mode
 
-
     _display.sendBuffer(); // Send the buffer to the display
 
 }
@@ -250,7 +266,7 @@ Mode GFC600::decideActiveLateralMode()
     if (_apr.state && _loc.state && !_gps.state) return _loc;
     if (_vor.state && _gps.state) return _gps;
     if (_vor.state) return _vor;
-    if (_gps.state) return _gps;
+
 
     // Default fallback
     return _none;
@@ -288,12 +304,88 @@ Mode GFC600::decideArmedLateralMode()
 }
 
 
+void GFC600::flashModeTranistion()
+{
+
+
+    //int delta = abs(_altitude_value_10ft - _altitude_lock_value); // Assuming _altitude_value_100ft is in 100s of feet
+
+    // Phase 1: Approaching selected altitude, ALTS is armed
+    if (_within200ft)
+    {
+        if ((_pit.state || _ias.state || _vs.state || _ga.state) && _alts.state)
+        {
+            if (!_flashAlts) {
+                _flashAlts = true;
+                _flashAltsStart = millis();
+            }
+        }
+    }
+
+    // Stop flashing ALTS after duration
+    if (_flashAlts && millis() - _flashAltsStart > FLASH_DURATION)
+    {
+        _flashAlts = false;
+    }
+
+    // Phase 2: Within capture range (ALT mode becomes active)
+    if (_alt.state && !_alts.state && _within50ft)
+    {
+        if (!_flashAlt) {
+            _flashAlt = true;
+            _flashAltStart = millis();
+        }
+    }
+
+    // Stop flashing ALT after duration
+    if (_flashAlt && millis() - _flashAltStart > FLASH_DURATION)
+    {
+        _flashAlt = false;
+    }
+}
+
+
+void GFC600::drawFlashingText(uint8_t x, uint8_t y, const uint8_t* font, const char* text, bool flashEnabled)
+{
+    static const unsigned long FLASH_INTERVAL = 500;
+    bool flashState = (millis() / FLASH_INTERVAL) % 2 == 0;
+
+    _display.setFont(font);
+    int textWidth = _display.getStrWidth(text);
+    int textHeight = _display.getMaxCharHeight();
+
+    // Define bounding box for cleanup
+    int boxX = x - 2;
+    int boxY = y - textHeight;
+    int boxW = textWidth + 4;
+    int boxH = textHeight + 4;
+
+    // Always clear the area first
+    _display.setDrawColor(BLACK);
+    _display.drawBox(boxX, boxY, boxW, boxH);
+
+    // Draw text based on flash state
+    if (!flashEnabled || flashState)
+    {
+        // Show normal white text (no flashing or during flash phase)
+        _display.setDrawColor(WHITE);
+        _display.drawStr(x, y, text);
+    }
+    // else: during flash "off" phase, we draw nothing (text remains hidden)
+}
+
+
 
 
 
 Mode GFC600::decideActiveVertialMode()
 {
     if (_alt.state && !_alts.state)
+    {
+        return _alt;
+    }
+
+    else if (_alt.state && _alts.state && _within50ft)
     {
         return _alt;
     }
@@ -353,8 +445,8 @@ void GFC600::altModeDrawingHandler(Mode mode)
     }
     else
     {
-        altitude = _altitude_value;
-        sprintf(altitude_str, "%d", _altitude_value);
+        altitude = _altitude_value_100ft;
+        sprintf(altitude_str, "%d", _altitude_value_100ft);
     }
 
     int abs_alt = abs(altitude);
@@ -434,9 +526,26 @@ Mode GFC600::decideArmedVerticalModeTwo()
 void GFC600::drawActiveVerticalMode(Mode mode)
 {
     // Clear only the active vertical mode area
-    clearArea(activeVerticalArea.x, activeVerticalArea.y, activeVerticalArea.width, activeVerticalArea.height); // Clear the active lateral mode area
-    printTextToDisplay(X_DIV1 + 3, Y_ACTIVE, FONT_ACTIVE, mode.name.c_str()); // Draw the active mode name
+    clearArea(activeVerticalArea.x, activeVerticalArea.y, activeVerticalArea.width, activeVerticalArea.height);
+
+    const char* name = mode.name.c_str();
+    const uint8_t* font = FONT_ACTIVE;
+    uint8_t x = X_DIV1 + 3;
+    uint8_t y = Y_ACTIVE;
+
+    bool isFlashingAlt  = (mode.name == "ALT"  && _flashAlt);
+    bool isFlashingAlts = (mode.name == "ALTS" && _flashAlts);
+
+    if (isFlashingAlt || isFlashingAlts)
+    {
+        drawFlashingText(x, y, font, name, true);
+    }
+    else
+    {
+        printTextToDisplay(x, y, font, name);
+    }
 }
+
 
 
 
@@ -444,8 +553,16 @@ void GFC600::drawArmedVerticalModeOne(Mode mode)
 {
     // Clear only the armed vertical mode area
     clearArea(armedVerticalArea.x, armedVerticalArea.y, armedVerticalArea.width, armedVerticalArea.height); // Clear the active lateral mode area
+
+    if (mode.name == "ALT" && _flashAlt)
+    {
+        drawFlashingText(X_DIV1 + 5, Y_ARMED, FONT_ARMED, mode.name.c_str(), true); // Draw the active mode name
+    }
+    else
+        // Draw the active mode name
     printTextToDisplay(X_DIV1 + 5, Y_ARMED, FONT_ARMED, mode.name.c_str()); // Draw the active mode name
 }
+
 
 
 void GFC600::drawArmedVerticalModeTwo(Mode mode)
@@ -620,7 +737,7 @@ void GFC600::drawArmedLateralMode(Mode mode)
 
 void GFC600::update()
 {
-    
+    flashModeTranistion();
     renderDisplay(); // Render the display
     // Do something which is required regulary
 }

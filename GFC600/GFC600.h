@@ -30,6 +30,8 @@ public:
     void iasModeDrawingHandler();
     void vsModeDrawingHandler();
     void drawArrow(uint8_t x, uint8_t y, const char *arrow);
+    void flashModeTranistion();
+    void drawFlashingText(uint8_t x, uint8_t y, const uint8_t* font, const char* text, bool flashEnabled);
     
 
 
@@ -66,10 +68,19 @@ private:
     Mode _none;
 
     int _altitude_lock_value;
-    int _altitude_value;
+    int _altitude_value_100ft;
+    //int _altitude_value_10ft;
+    bool _within50ft;
+    bool _within200ft;
     int _vs_value;
     int _ias_lock_value;
 
+
+    bool _flashAlts;
+    bool _flashAlt;
+    unsigned long _flashAltsStart;
+    unsigned long _flashAltStart;
+    unsigned long _flashAltsMillis;
 
     
  

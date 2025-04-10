@@ -1,6 +1,12 @@
 #pragma once
 
 #include <Arduino.h>
+
+const unsigned long FLASH_DURATION = 10000; // 10 seconds
+const unsigned long FLASH_INTERVAL = 500;   // flash every 500ms
+const int ALT_CAPTURE_THRESHOLD = 200; // feet before selected altitude to start flashing ALTS
+
+
 // Display layout
 constexpr uint8_t DISPLAY_WIDTH = 254;
 constexpr uint8_t DISPLAY_HEIGHT = 64;
@@ -83,8 +89,11 @@ enum ModesMessageId
     PIT,
     GP,
 
-    ALTITUDE_VAL = 29,
+    ALTITUDE_VALUE_100FT = 27,
+    ALTITUDE_WITHIN_50FT = 28,
+    ALTITUDE_WITHIN_200FT = 29,
     ALTITUDE_LOCK_VAL = 30,
+    
     VS_VAL = 31,
     IAS_VAL = 32,
 
