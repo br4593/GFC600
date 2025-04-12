@@ -313,7 +313,7 @@ void GFC600::updateAltitudeFlashState()
     unsigned long now = millis();
 
     // Phase 1: Approaching selected altitude, ALTS is armed
-    if (_within200ft &&
+    if (_within200ft && !_within50ft &&
         (_pit.state || _ias.state || _vs.state || _ga.state) &&
         _alts.state)
     {
@@ -390,17 +390,13 @@ Mode GFC600::decideActiveVerticalMode()
         return _alt;
     }
 
-    if (_alts.state)
-    {
-        return _alts;
-    }
 
     if (_ias.state)
     {
         return _ias;
     }
 
-    if (_vs.state)
+    if (_vs.state && !_lvl.state)
     {
         return _vs;
     }
