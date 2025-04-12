@@ -84,6 +84,13 @@ private:
     unsigned long _flashAltsStart = 0;
     unsigned long _flashAltStart = 0;
     unsigned long _lastFlashToggle = 0;
+    bool _lastFlashBit = true;  // true = flash ON last time
+    bool _altFlashedAlready = false;
+    bool _altsFlashedAlready = false;
+    bool _enteredAltsWindow = false;
+
+
+
 
     // ────────────── Render Flag ──────────────
     bool _dirty = true;
