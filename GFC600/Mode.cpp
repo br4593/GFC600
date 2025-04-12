@@ -11,7 +11,7 @@ void setState(Mode *mode, bool state) {
     mode->state = state; // Set the state of the mode
 }
 
-void setName(Mode *mode, String name) {
+void setName(Mode *mode,  const char* name) {
     mode->name = name; // Set the name of the mode
 }
 

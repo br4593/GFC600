@@ -297,6 +297,18 @@
         <configrefs />
       </settings>
     </config>
+    <config guid="e8ca2f93-9a9a-4c8c-9034-934a5cfeb4d4">
+      <active>true</active>
+      <description>GA Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="" serial="" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
   </outputs>
   <inputs>
     <config guid="8c6ffe95-3d14-4ca2-aae8-0b58f17fc989">

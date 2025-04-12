@@ -16,6 +16,9 @@ constexpr uint8_t WIDTH_LATERAL  = 50;
 constexpr uint8_t WIDTH_VERTICAL = 125;
 constexpr uint8_t WIDTH_MESSAGES = 75;
 
+constexpr uint8_t WIDTH_ACTIVE = 50;
+constexpr uint8_t WIDHT_ARMED = 30;
+
 constexpr uint8_t CORRECTION_FACTOR = 3;
 
 
@@ -42,7 +45,7 @@ constexpr uint8_t Y_ARMED = 60;
 constexpr uint8_t Y_UNITS = 35;     
 
 
-constexpr uint8_t CLEAR_HEIGHT = 40; // Height of the area to clear
+constexpr uint8_t CLEAR_HEIGHT = 35; // Height of the area to clear
 constexpr uint8_t FONTS_LEFT_ALIGN_FACTOR = 2;
 
 const int NUM_OF_MODES = 15; // Number of modes
@@ -115,5 +118,7 @@ typedef struct {
 extern Rect activeLateralArea;
 extern Rect armedLateralArea;
 extern Rect activeVerticalArea;
-extern Rect armedVerticalArea;
+extern Rect armedVerticalAreaOne;
+extern Rect armedVerticalAreaTwo;
+extern Rect verticalSettingsArea;
 
