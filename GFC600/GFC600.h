@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 
 #include "Arduino.h"
 #include <U8g2lib.h>
@@ -37,6 +37,10 @@ public:
     void drawArmedVerticalModeOne(Mode mode);
     void drawArmedVerticalModeTwo(Mode mode);
     void drawVerticalSetting(Mode mode);  // ALT, IAS, VS specific visuals
+    void drawFlashingText(uint8_t x, uint8_t y, const uint8_t* font, const char* text);
+    void resetFlashingOnModeChange(); // Reset flashing state when mode changes
+    void updateAltitudeFlashingState(); // Update flashing state based on altitude conditions
+    void updateAltitudeFlashState(); // Update flashing state based on vertical mode conditions
 
     // ────────────── Numeric Handlers ──────────────
     void altModeDrawingHandler(Mode mode);
@@ -82,10 +86,21 @@ private:
     bool _within300ft = false;
 
     // ────────────── Flashing State ──────────────
-    bool _flashAlts = false;
-    bool _flashAlt = false;
- 
 
+    bool _flashAlt = false; // Flashing state for ALT mode
+    bool _flashAlts = false; // Flashing state for ALTS mode
+
+    bool _altFlashed = false; // Flashing state for ALT mode
+    bool _altsFlashed = false; // Flashing state for ALTS mode
+
+    unsigned long _flashAltStart = 0;
+    unsigned long _flashAltsStart = 0;
+
+    bool _flashing = false; // Flashing state for ALT mode
+    bool _flashFlag = false; // Flashing state for ALTS mode
+
+    unsigned long _lastFlashToggle = 0; // Last time the text was flashed
+    
 
     // ────────────── Render Flag ──────────────
     bool _dirty = true;

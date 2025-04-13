@@ -449,12 +449,21 @@ Mode GFC600::decideArmedVerticalModeTwo()
 
 void GFC600::drawActiveVerticalMode(Mode mode)
 {
-
-    // Clear only the active vertical mode area
     clearArea(activeVerticalArea.x, activeVerticalArea.y, activeVerticalArea.width, activeVerticalArea.height);
 
+    if (mode.value == ALT && _flashAlt)
+    {
+        drawFlashingText(activeVerticalArea.x, activeVerticalArea.y + Y_ACTIVE, FONT_ACTIVE, mode.name); // Draw the active mode name
+    }
+    else if (mode.value == ALTS && (_flashAlts))
+    {
+        drawFlashingText(activeVerticalArea.x, activeVerticalArea.y + Y_ACTIVE, FONT_ACTIVE, mode.name); // Draw the active mode name
+    }
+    else
+    {
+        printTextToDisplay(activeVerticalArea.x, activeVerticalArea.y + Y_ACTIVE, FONT_ACTIVE, mode.name); // Draw the active mode name
+    }
 
-        printTextToDisplay(activeVerticalArea.x, activeVerticalArea.y + 25, FONT_ACTIVE ,mode.name);
 }
 
 
@@ -591,8 +600,6 @@ void GFC600::drawVerticalSetting(Mode mode)
 
 
 
-
-
 void GFC600::clearArea(uint8_t x, uint8_t y, uint8_t width, uint8_t height)
 {
     _display.setDrawColor(BLACK); // Set draw color to black (clear)
@@ -639,11 +646,103 @@ int GFC600::computeXPosForValue(int value)
     
 }
 
+void GFC600::updateAltitudeFlashState()
+{
+    if (_flashAlt && (millis() - _flashAltStart >= FLASH_DURATION))
+    {
+        _flashAlt = false; // Stop flashing ALT mode
+        _altFlashed = true; // Set the flag to indicate ALT mode has flashed
+        _dirty = true; // Set dirty flag to true for re-rendering
+        _flashing = false; // Reset flashing state
+    }
+
+    if (_flashAlts && (millis() - _flashAltsStart >= FLASH_DURATION))
+    {
+        _flashAlts = false; // Stop flashing ALTS mode
+        _altsFlashed = true; // Set the flag to indicate ALTS mode has flashed
+        _dirty = true; // Set dirty flag to true for re-rendering
+        _flashing = false; // Reset flashing state
+    }
+
+    if (_flashing)
+    {
+        return;
+    }
+
+    if (_activeVerticalMode.value == ALT)
+    {
+        if (_within50ft && !_altFlashed )
+        {
+            _flashAlt = true;
+            _flashAlts = false;
+            _flashAltStart = millis(); // Start flashing ALT mode
+            _dirty = true; // Set dirty flag to true for re-rendering
+            _flashing = true; // Set flashing state to true
+
+        }
+    }
+
+    if (_activeVerticalMode.value == ALTS)
+    {
+        if (_within300ft && !_within50ft && !_altsFlashed)
+        {
+            _flashAlts = true;
+            _flashAlt = false;
+            _flashAltsStart = millis(); // Start flashing ALTS mode
+            _dirty = true; // Set dirty flag to true for re-rendering
+            _flashing = true; // Set flashing state to true
+        }
+    }
+}
+
+
+
+void GFC600::resetFlashingOnModeChange()
+{
+    if (_activeVerticalMode.value == IAS || _activeVerticalMode.value == VS || _activeVerticalMode.value == PIT || _activeVerticalMode.value == GA) {
+        _flashAlt = false;
+        _flashAlts = false;
+        _altFlashed = false;
+        _altsFlashed = false;
+        _flashing = false; // Reset flashing state
+    }
+
+}
+
+
+void GFC600::drawFlashingText(uint8_t x, uint8_t y, const uint8_t* font, const char* text)
+{
+    unsigned long phase = millis() % 1000; // repeating 0–999ms cycle
+    bool flashState = phase < 500;         // visible for first 500ms, off for next 500ms
+
+    _display.setFont(font);
+    int textWidth = _display.getStrWidth(text);
+    int textHeight = _display.getMaxCharHeight();
+
+    if (flashState) {
+        _display.setDrawColor(WHITE);
+        _display.drawBox(x - 2, y - textHeight + 3, textWidth + 4, textHeight);
+        _display.setDrawColor(BLACK);
+        _display.drawStr(x, y, text);
+        _dirty = true; // Set dirty flag to true for re-rendering
+    } else {
+        _display.setDrawColor(WHITE);
+        _display.drawStr(x, y, text);
+        _dirty = true; // Set dirty flag to true for re-rendering
+    }
+}
+
+
 
 
 void GFC600::update()
 {
-    //updateAltitudeFlashState();
+ 
+    updateAltitudeFlashState();  // check if ALT/ALTS should be flashing or stop
+    resetFlashingOnModeChange(); // Reset flashing state when mode changes
+
+    if (_flashAlt || _flashAlts)
+    _dirty = true;
 
     if (_dirty) {
         
