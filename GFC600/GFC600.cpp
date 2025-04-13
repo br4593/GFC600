@@ -178,9 +178,9 @@ void GFC600::set(int16_t messageID, char *setPoint)
             _dirty = true;
             break;
 
-        case ALTITUDE_WITHIN_200FT:
+        case ALTITUDE_WITHIN_300FT:
             // Set the altitude value
-            _within200ft = data;
+            _within300ft = data;
             _dirty = true;
             break;
 
@@ -216,21 +216,24 @@ void GFC600::drawDisplayLayout()
 
 void GFC600::renderDisplay()
 {
+
+    _display.clearBuffer();
+
     drawDisplayLayout(); // Draw the layout of the display
 
-    Mode activeLateralMode = decideActiveLateralMode(); // Decide the active lateral mode
-    Mode armedLateralMode = decideArmedLateralMode(); // Decide the armed lateral mode
-    Mode activeVerticalMode = decideActiveVerticalMode(); // Decide the active vertical mode
-    Mode armedVerticalModeOne = decideArmedVerticalModeOne(); // Decide the armed vertical mode
-    Mode armedVerticalModeTwo = decideArmedVerticalModeTwo(); // Decide the armed vertical mode
+    _activeLateralMode = decideActiveLateralMode(); // Decide the active lateral mode
+    _armedLateralMode = decideArmedLateralMode(); // Decide the armed lateral mode
+    _activeVerticalMode = decideActiveVerticalMode(); // Decide the active vertical mode
+    _armedVerticalModeOne = decideArmedVerticalModeOne(); // Decide the armed vertical mode
+    _armedVerticalModeTwo = decideArmedVerticalModeTwo(); // Decide the armed vertical mode
 
-    drawActiveLateralMode(activeLateralMode); // Draw the active lateral mode
-    drawArmedLateralMode(armedLateralMode); // Draw the armed lateral mode
+    drawActiveLateralMode(_activeLateralMode); // Draw the active lateral mode
+    drawArmedLateralMode(_armedLateralMode); // Draw the armed lateral mode
 
-    drawActiveVerticalMode(activeVerticalMode); // Draw the active vertical mode
-    drawVerticalSetting(activeVerticalMode); // Draw the vertical setting
-    drawArmedVerticalModeOne(armedVerticalModeOne); // Draw the armed vertical mode
-    drawArmedVerticalModeTwo(armedVerticalModeTwo); // Draw the armed vertical mode
+    drawActiveVerticalMode(_activeVerticalMode); // Draw the active vertical mode
+    drawVerticalSetting(_activeVerticalMode); // Draw the vertical setting
+    drawArmedVerticalModeOne(_armedVerticalModeOne); // Draw the armed vertical mode
+    drawArmedVerticalModeTwo(_armedVerticalModeTwo); // Draw the armed vertical mode
 
     _display.sendBuffer(); // Send the buffer to the display
 
@@ -317,59 +320,52 @@ Mode GFC600::decideArmedLateralMode()
 
 Mode GFC600::decideActiveVerticalMode()
 {
-    if (_alt.state && !_alts.state)
-    {
-        return _alt;
+    // --- ALT/ALTS handling ---
+    if (_alt.state) {
+        if (!_alts.state) {
+            return _alt;
+        }
+
+        if (_within50ft) {
+            return _alt;
+        }
+
+        if (_within300ft) {
+            return _alts;
+        }
+
+        return _alts; // outside 300ft but both active
     }
 
-    else if (_alt.state && _alts.state && _within50ft)
-    {
-        return _alt;
-    }
-
-    if (_alt.state && !_alts.state && _within50ft)
-    return _alt;
-
-
-    if (_alt.state && !_alts.state)
-        return _alt;
-
-
-
-    if (_ias.state)
-    {
+    // --- Other vertical modes by priority ---
+    if (_ias.state) {
         return _ias;
     }
 
-    if (_vs.state && !_lvl.state)
-    {
+    if (_vs.state && !_lvl.state) {
         return _vs;
     }
 
-    if (_lvl.state)
-    {
+    if (_lvl.state) {
         return _lvl;
     }
 
-    if (_pit.state)
-    {
+    if (_pit.state) {
         return _pit;
     }
 
-
-
-    if (_gps.state && _gs_active.state)
-    {
-        return _gp;
-    }
-
-    if (!_gps.state && _gs_active.state)
-    {
-        return _gs_active;
+    // --- Glidepath modes ---
+    if (_gs_active.state) {
+        if (_gps.state) {
+            return _gp;
+        } else {
+            return _gs_active;
+        }
     }
 
     return _none;
 }
+
 
 
 void GFC600::altModeDrawingHandler(Mode mode)
@@ -457,29 +453,11 @@ void GFC600::drawActiveVerticalMode(Mode mode)
     // Clear only the active vertical mode area
     clearArea(activeVerticalArea.x, activeVerticalArea.y, activeVerticalArea.width, activeVerticalArea.height);
 
-    const char* name = mode.name;
-    const uint8_t* font = FONT_ACTIVE;
-    uint8_t x = X_DIV1 + 3;
-    uint8_t y = Y_ACTIVE;
 
-        printTextToDisplay(x, y, font, name);
-
-
-    //cmdMessenger.sendCmd(kDebug, String("[DRAW] Active mode: ") + mode.name);
-
+        printTextToDisplay(activeVerticalArea.x, activeVerticalArea.y + 25, FONT_ACTIVE ,mode.name);
 }
 
-/*void GFC600::drawActiveVerticalMode(Mode mode)
-{
-    clearArea(activeVerticalArea.x, activeVerticalArea.y, activeVerticalArea.width, activeVerticalArea.height);
 
-    const char* name = "TEST";
-    const uint8_t* font = FONT_ACTIVE;
-    uint8_t x = X_DIV1 + 3;
-    uint8_t y = Y_ACTIVE;
-
-    drawFlashingText(x, y, font, name, true);
-}*/
 
 
 
@@ -564,11 +542,11 @@ void GFC600::vsModeDrawingHandler()
     // Display up/down arrow depending on sign
     if (_vs_value > 0)
     {
-        drawArrow(arrow_x, Y_ACTIVE, UP_ARROW);
+        drawArrow(arrow_x, Y_ARROW, UP_ARROW);
     }
     else if (_vs_value < 0)
     {
-        drawArrow(arrow_x, Y_ACTIVE, DOWN_ARROW);
+        drawArrow(arrow_x, Y_ARROW, DOWN_ARROW);
     }
 
     // Display unit
@@ -653,7 +631,7 @@ int GFC600::computeXPosForValue(int value)
 {
 
         int abs_val = abs(value);
-        if (abs_val == 0) return X_DIV2 - 13;
+        if (abs_val == 0) return X_DIV2 - ACTIVE_FONT_SPACING_FACTOR;
         if (abs_val < 100) return X_VERTICAL_TWO_DIGITS;
         if (abs_val < 1000) return X_VERTICAL_THREE_DIGITS;
         if (abs_val < 10000) return X_VERTICAL_FOUR_DIGITS;
@@ -662,12 +640,13 @@ int GFC600::computeXPosForValue(int value)
 }
 
 
+
 void GFC600::update()
 {
-    
-
+    //updateAltitudeFlashState();
 
     if (_dirty) {
+        
         renderDisplay();
         _dirty = false;
     }

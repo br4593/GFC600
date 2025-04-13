@@ -97,6 +97,24 @@
         <configrefs />
       </settings>
     </config>
+    <config guid="3ba6a721-7df2-45a1-806c-f4c91dfd0452">
+      <active>true</active>
+      <description>ALTS Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT ALTITUDE LOCK VAR:1,Feet)" UUID="7ac4737f-b97d-4bbb-af35-7067a5f1c1aa" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-A" />
+          <transformation active="True" expression="if($ &gt;= -200 and $ &lt;= 200, 1, 0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="12" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="False" ref="57e1ae9d-ed3f-4ca3-94f0-aa8c0536a643" placeholder="B" testvalue="1" />
+          <configref active="True" ref="1736b7d9-9d92-47c4-8518-ed94caee7984" placeholder="A" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
     <config guid="76fa4f00-37b2-4b46-934b-ee453376b047">
       <active>true</active>
       <description>ALT Mode</description>
@@ -265,24 +283,6 @@
         <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="4" value="$" />
         <preconditions />
         <configrefs />
-      </settings>
-    </config>
-    <config guid="3ba6a721-7df2-45a1-806c-f4c91dfd0452">
-      <active>true</active>
-      <description>ALTS Mode</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT ALTITUDE LOCK VAR:1,Feet)" UUID="7ac4737f-b97d-4bbb-af35-7067a5f1c1aa" />
-        <test type="Float" value="1" />
-        <modifiers>
-          <transformation active="True" expression="$-A" />
-          <transformation active="True" expression="if($ &gt;= -200 and $ &lt;= 200, 1, 0)" />
-        </modifiers>
-        <display type="CustomDevice" serial="MobiFlight Mega/ SN-850-5fd" trigger="normal" customType="" customName="GFC600" messageType="12" value="$" />
-        <preconditions />
-        <configrefs>
-          <configref active="False" ref="57e1ae9d-ed3f-4ca3-94f0-aa8c0536a643" placeholder="B" testvalue="1" />
-          <configref active="True" ref="1736b7d9-9d92-47c4-8518-ed94caee7984" placeholder="A" testvalue="1" />
-        </configrefs>
       </settings>
     </config>
     <config guid="fedfb706-b9c8-4349-8037-659578d2ffac">

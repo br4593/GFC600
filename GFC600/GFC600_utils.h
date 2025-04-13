@@ -23,7 +23,7 @@ constexpr uint8_t CORRECTION_FACTOR = 3;
 
 
 // X coordinates of each section
-constexpr uint8_t X_ACTIVE_SPACING_FACTOR = 15;
+constexpr uint8_t ACTIVE_FONT_SPACING_FACTOR = 12;
 constexpr uint8_t X_LATERAL  = 0;
 constexpr uint8_t X_DIV1     = X_LATERAL + WIDTH_LATERAL;       // 50
 constexpr uint8_t X_VERTICAL = X_DIV1 + 2;                   // 52
@@ -35,7 +35,7 @@ constexpr uint8_t X_VERTICAL_FIVE_DIGITS = X_VERTICAL_FOUR_DIGITS - 12;;
 
 
 
-constexpr uint8_t X_VERTICAL_TWO_DIGITS = X_DIV2 - X_ACTIVE_SPACING_FACTOR - CORRECTION_FACTOR;
+constexpr uint8_t X_VERTICAL_TWO_DIGITS = X_DIV2 - ACTIVE_FONT_SPACING_FACTOR;
 constexpr uint8_t X_MESSAGES = X_DIV2 + 2;    
 constexpr uint8_t X_UNITS = X_DIV2 - 20;  
             // 179
@@ -43,6 +43,7 @@ constexpr uint8_t X_UNITS = X_DIV2 - 20;
 constexpr uint8_t Y_ACTIVE = 25;
 constexpr uint8_t Y_ARMED = 60;
 constexpr uint8_t Y_UNITS = 35;     
+constexpr uint8_t Y_ARROW = 20; // Y coordinate for messages
 
 
 constexpr uint8_t CLEAR_HEIGHT = 35; // Height of the area to clear
@@ -94,7 +95,7 @@ enum ModesMessageId
 
     ALTITUDE_VALUE_100FT = 27,
     ALTITUDE_WITHIN_50FT = 28,
-    ALTITUDE_WITHIN_200FT = 29,
+    ALTITUDE_WITHIN_300FT = 29,
     ALTITUDE_LOCK_VAL = 30,
     
     VS_VAL = 31,

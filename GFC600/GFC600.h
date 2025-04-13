@@ -45,12 +45,9 @@ public:
 
     // ────────────── Utility Drawing ──────────────
     void drawArrow(uint8_t x, uint8_t y, const char *arrow);
-    void drawFlashingText(uint8_t x, uint8_t y, const uint8_t* font, const char* text, bool flashEnabled);
     void clearArea(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
     void printTextToDisplay(uint8_t x, uint8_t y, const uint8_t *font, const char *text);
 
-    // ────────────── Flashing State Logic ──────────────
-    void updateAltitudeFlashState();
 
     // ────────────── Initialization Helpers ──────────────
     void initModes();
@@ -70,26 +67,24 @@ private:
     Mode _vnav, _vs, _alt, _alts, _ias, _vpth, _gs_armed, _gs_active, _gp, _pit;
     Mode _none;
 
+    Mode _activeLateralMode;
+    Mode _armedLateralMode;
+    Mode _activeVerticalMode;
+    Mode _armedVerticalModeOne;
+    Mode _armedVerticalModeTwo;
+
     // ────────────── State Data ──────────────
     int _altitude_lock_value = 0;
     int _altitude_value_100ft = 0;
     int _vs_value = 0;
     int _ias_lock_value = 0;
     bool _within50ft = false;
-    bool _within200ft = false;
+    bool _within300ft = false;
 
     // ────────────── Flashing State ──────────────
     bool _flashAlts = false;
     bool _flashAlt = false;
-    unsigned long _flashAltsStart = 0;
-    unsigned long _flashAltStart = 0;
-    unsigned long _lastFlashToggle = 0;
-    bool _lastFlashBit = true;  // true = flash ON last time
-    bool _altFlashedAlready = false;
-    bool _altsFlashedAlready = false;
-    bool _enteredAltsWindow = false;
-
-
+ 
 
 
     // ────────────── Render Flag ──────────────
